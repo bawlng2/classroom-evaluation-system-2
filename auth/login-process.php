@@ -26,7 +26,7 @@ error_log("Login attempt - Username: " . $_POST['username'] . ", Role: " . $_POS
 if($user->login()) {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['username'] = $user->username;
-        $_SESSION['role'] = $user->role;
+        $_SESSION['role'] = strtolower($user->role); // force lowercase for consistency
         $_SESSION['department'] = $user->department;
         $_SESSION['name'] = $user->name;
         
@@ -38,11 +38,12 @@ if($user->login()) {
         $log_stmt->bindParam(':ip_address', $_SERVER['REMOTE_ADDR']);
         $log_stmt->execute();
         
-        if($user->role == 'edp') {
+        $role = strtolower($user->role);
+        if($role == 'edp') {
             header("Location: ../edp/dashboard.php");
-        } elseif(in_array($user->role, ['president', 'vice_president'])) {
-            header("Location: ../superadmin/dashboard.php");
-        } elseif(in_array($user->role, ['dean', 'principal', 'chairperson', 'subject_coordinator'])) {
+        } elseif(in_array($role, ['president', 'vice_president'])) {
+            header("Location: ../leaders/dashboard.php");
+        } elseif(in_array($role, ['dean', 'principal', 'chairperson', 'subject_coordinator'])) {
             header("Location: ../evaluators/dashboard.php");
         } else {
             header("Location: ../evaluators/dashboard.php");

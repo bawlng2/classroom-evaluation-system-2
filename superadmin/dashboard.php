@@ -1,8 +1,13 @@
 <?php
 require_once '../auth/session-check.php';
 if($_SESSION['role'] != 'superadmin') {
-    header("Location: ../login.php");
-    exit();
+    if(in_array($_SESSION['role'], ['president', 'vice_president'])) {
+        header("Location: ../leaders/dashboard.php");
+        exit();
+    } else {
+        header("Location: ../login.php");
+        exit();
+    }
 }
 
 require_once '../config/database.php';

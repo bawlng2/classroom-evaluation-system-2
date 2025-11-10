@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             'SHS' => 'Senior High School (SHS)'
                         ];
                         foreach($departments as $key => $label): ?>
-                        <option value="<?php echo $key; ?>" <?php if($evaluator['department'] == $key || $evaluator['department'] == $label) echo 'selected'; ?>><?php echo $label; ?></option>
+                            <option value="<?php echo $key; ?>" <?php if($evaluator['department'] == $key) echo 'selected'; ?>><?php echo $label; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -90,7 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                            if(role === 'president' || role === 'vice_president') {
+                                departmentGroup.style.display = 'none';
+                            } else if(role === 'dean' || role === 'principal' || role === 'subject_coordinator' || role === 'chairperson') {
     <script src="../assets/js/main.js"></script>
 </body>
 </html>

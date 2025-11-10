@@ -1,6 +1,7 @@
 <?php
 require_once '../auth/session-check.php';
-if(!in_array($_SESSION['role'], ['dean', 'principal', 'chairperson', 'subject_coordinator'])) {
+// Allow evaluators and leaders (president/vice_president) to access evaluation
+if(!in_array($_SESSION['role'], ['dean', 'principal', 'chairperson', 'subject_coordinator', 'president', 'vice_president'])) {
     header("Location: ../login.php");
     exit();
 }
@@ -16,7 +17,12 @@ $db = $database->getConnection();
 $teacher = new Teacher($db);
 $evaluation = new Evaluation($db);
 
-$teachers = $teacher->getActiveByDepartment($_SESSION['department']);
+// Presidents and Vice Presidents can evaluate across all departments
+if(in_array($_SESSION['role'], ['president', 'vice_president'])) {
+    $teachers = $teacher->getAllTeachers('active');
+} else {
+    $teachers = $teacher->getActiveByDepartment($_SESSION['department']);
+}
 
 // Handle form submission
 if($_POST && isset($_POST['submit_evaluation'])) {
@@ -660,6 +666,14 @@ if($_POST && isset($_POST['submit_evaluation'])) {
             
             // Initialize teacher selection
             initializeTeacherSelection();
+
+            // If a teacher_id param is provided in the URL (leaders link), auto-start evaluation
+            const urlParams = new URLSearchParams(window.location.search);
+            const preselectTeacher = urlParams.get('teacher_id');
+            if (preselectTeacher) {
+                // If the teacher list is present, start evaluation immediately
+                startEvaluation(preselectTeacher);
+            }
         });
 
         function initializeTeacherSelection() {

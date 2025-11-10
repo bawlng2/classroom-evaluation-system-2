@@ -19,6 +19,10 @@
         <?php elseif($_SESSION['role'] == 'superadmin'): ?>
             <li><a href="users.php" class="nav-link"><i class="fas fa-users"></i> User Management</a></li>
             <li><a href="reports.php" class="nav-link"><i class="fas fa-chart-bar"></i> Reports</a></li>
+        <?php elseif(in_array($_SESSION['role'], ['president', 'vice_president'])): ?>
+            <li><a href="../leaders/dashboard.php" class="nav-link"><i class="fas fa-user-tie"></i> Leaders Dashboard</a></li>
+            <li><a href="../evaluators/evaluation.php" class="nav-link"><i class="fas fa-clipboard-check"></i> Evaluation</a></li>
+            <li><a href="../leaders/dashboard.php" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
         <?php else: ?>
             <li><a href="evaluation.php" class="nav-link"><i class="fas fa-clipboard-check"></i> Evaluation</a></li>
             <li><a href="teachers.php" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Teachers</a></li>
