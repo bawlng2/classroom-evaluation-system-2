@@ -540,17 +540,35 @@ if($_POST && isset($_POST['submit_evaluation'])) {
                                         </div>
                                     </div>
                                 </div>
-                                
+
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="btn" style="color: white; background-color: #31b5c9ff;">
+                                        <i class="fas fa-magic me-2"></i> Generate AI Recommendation
+                                    </button>
+                                </div>
 
                                 
                                 <!-- Strengths and Areas for Improvement -->
                                 <div class="row mt-4">
                                     <div class="col-md-6">
-                                        <label class="form-label">STRENGTHS</label>
-                                        <textarea class="form-control" id="strengths" name="strengths" rows="3" placeholder="List the teacher's strengths observed during the evaluation"></textarea>
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #ccc;">
+                                                STRENGTHS:
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item">Complete the Evaluation</a></li>
+                                            </ul>
+                                            <textarea class="form-control" id="strengths" name="strengths" rows="3" placeholder="List the teacher's strengths observed during the evaluation"></textarea>
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label">AREAS FOR IMPROVEMENT</label>
+                                        <div class="input-group">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-color: #ccc;">
+                                                AREAS FOR IMPROVEMENT:
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item">Complete the Evaluation</a></li>
+                                            </ul>
                                         <textarea class="form-control" id="improvementAreas" name="improvement_areas" rows="3" placeholder="List areas where the teacher can improve"></textarea>
                                     </div>
                                 </div>

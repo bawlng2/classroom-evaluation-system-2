@@ -76,7 +76,7 @@ $stats = $evaluation->getAdminStats($_SESSION['user_id']);
                         </div>
                         <div class="card-body">
                             <a href="evaluation.php" class="btn btn-primary me-2">
-                                <i class="fas fa-plus me-2"></i>New Evaluation
+                                Evaluate Teacher
                             </a>
                             <a href="teachers.php" class="btn btn-outline-primary me-2">
                                 <i class="fas fa-users me-2"></i>Manage Teachers
@@ -124,7 +124,7 @@ $stats = $evaluation->getAdminStats($_SESSION['user_id']);
                             <?php else: ?>
                             <p class="text-muted text-center py-3">
                                 <i class="fas fa-clipboard-list fa-2x mb-3"></i><br>
-                                No evaluations yet. <a href="evaluation.php">Start your first evaluation</a>.
+                                No evaluations yet.
                             </p>
                             <?php endif; ?>
                         </div>
