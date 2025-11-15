@@ -129,6 +129,17 @@ class Teacher {
         }
     }
 
+    // Toggle teacher status between active and inactive
+    public function toggleStatus($teacher_id) {
+        $teacher = $this->getById($teacher_id);
+        if (!$teacher) {
+            return false;
+        }
+        
+        $new_status = $teacher['status'] === 'active' ? 'inactive' : 'active';
+        return $this->updateStatus($teacher_id, $new_status);
+    }
+
     // Update teacher photo
     public function updatePhoto($teacher_id, $photo_filename) {
         $query = "UPDATE " . $this->table_name . " SET photo = :photo, updated_at = NOW() WHERE id = :id";
