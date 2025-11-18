@@ -112,12 +112,6 @@ $stats = $evaluation->getDepartmentStats($_SESSION['department'], $academic_year
                                     <th>Teacher</th>
                                     <th>Date</th>
                                     <th>Subject</th>
-                                    <th>Comm</th>
-                                    <th>Mgmt</th>
-                                    <th>Assess</th>
-                                    <th>Overall</th>
-                                    <th>Rating</th>
-                                    <th>AI Recs</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>

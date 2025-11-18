@@ -23,6 +23,7 @@ $evaluation = new Evaluation($db);
 
 $department_teachers = $teacher->getByDepartment($_SESSION['department']);
 $stats = $evaluation->getAdminStats($_SESSION['user_id']);
+$recent_evals = $evaluation->getRecentEvaluations($_SESSION['user_id'], 5);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,27 +43,28 @@ $stats = $evaluation->getAdminStats($_SESSION['user_id']);
                 <span>Welcome, <?php echo $_SESSION['name']; ?></span>
             </div>
             
+            <?php if(isset($_SESSION['success'])): ?>
+            <div class="alert alert-success alert-dismissible fade show">
+                <i class="fas fa-check-circle me-2"></i>
+                <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            <?php endif; ?>
+            
             <!-- Statistics Cards -->
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="dashboard-stat stat-1">
                         <i class="fas fa-chalkboard-teacher"></i>
                         <div class="number"><?php echo $department_teachers->rowCount(); ?></div>
                         <div>Teachers</div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <div class="dashboard-stat stat-2">
                         <i class="fas fa-clipboard-check"></i>
                         <div class="number"><?php echo $stats['completed_evaluations']; ?></div>
                         <div>Completed Evaluations</div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="dashboard-stat stat-3">
-                        <i class="fas fa-robot"></i>
-                        <div class="number"><?php echo $stats['ai_recommendations']; ?></div>
-                        <div>AI Recommendations</div>
                     </div>
                 </div>
             </div>
@@ -94,10 +96,7 @@ $stats = $evaluation->getAdminStats($_SESSION['user_id']);
                             <h5 class="mb-0">Recent Evaluations</h5>
                         </div>
                         <div class="card-body">
-                            <?php
-                            $recent_evals = $evaluation->getRecentEvaluations($_SESSION['user_id'], 5);
-                            if($recent_evals->rowCount() > 0):
-                            ?>
+                            <?php if($recent_evals->rowCount() > 0): ?>
                             <div class="list-group">
                                 <?php while($eval = $recent_evals->fetch(PDO::FETCH_ASSOC)): ?>
                                 <div class="list-group-item">
@@ -124,7 +123,7 @@ $stats = $evaluation->getAdminStats($_SESSION['user_id']);
                             <?php else: ?>
                             <p class="text-muted text-center py-3">
                                 <i class="fas fa-clipboard-list fa-2x mb-3"></i><br>
-                                No evaluations yet.
+                                No evaluations yet. <a href="evaluation.php">Start your first evaluation</a>.
                             </p>
                             <?php endif; ?>
                         </div>

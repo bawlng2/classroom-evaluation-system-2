@@ -14,9 +14,9 @@ if($user_role === 'edp' && strpos($_SERVER['REQUEST_URI'], '/edp/') === false) {
     exit();
 }
 
-// Superadmin level users (President, Vice President)
-if(in_array($user_role, ['president', 'vice_president']) && strpos($_SERVER['REQUEST_URI'], '/superadmin/') === false) {
-    header("Location: ../superadmin/dashboard.php");
+// Leaders (President, Vice President) should access the leaders area
+if(in_array($user_role, ['president', 'vice_president']) && strpos($_SERVER['REQUEST_URI'], '/leaders/') === false) {
+    header("Location: ../leaders/dashboard.php");
     exit();
 }
 
